@@ -1,0 +1,19 @@
+services:
+  postgres:
+    image: postgres:17
+
+    container_name: rbac-postgres
+
+    environment:
+      POSTGRES_USER: rbac_user
+      POSTGRES_PASSWORD: rbac_password
+      POSTGRES_DB: rbac_db
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
