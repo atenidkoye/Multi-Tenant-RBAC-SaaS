@@ -18,4 +18,15 @@ export const tenantsService = {
 
         return tenantsRepository.create(data,slug);
     },
+
+    async getById(id: number){
+        const tenant = await tenantsRepository.getById(id);
+
+        if(!tenant) {
+            throw new Error("Tenant not found");
+        }
+
+        return tenant;
+    }
 };
+

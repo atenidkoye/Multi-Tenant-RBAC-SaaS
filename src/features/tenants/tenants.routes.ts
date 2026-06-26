@@ -6,6 +6,7 @@ import { validateCreateTenant } from "./tenants.middleware";
 const router = express.Router();
 
 router.post("/", validateCreateTenant, tenantsController.create);
+router.get("/:tenant_id", tenantsController.getById)
 
 
 export default router;

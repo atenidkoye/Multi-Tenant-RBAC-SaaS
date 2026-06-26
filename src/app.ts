@@ -2,6 +2,7 @@ import express from "express";
 import tenantRoutes from "./features/tenants/tenants.routes";
 import { authService } from "./features/auth/auth.service";
 import { pool } from "./config/database";
+import { errorMiddleware } from "./middleware/error.middleware";
 
 const app = express();
 
@@ -31,16 +32,10 @@ app.get("/health/db", async (_req, res) => {
     }
 });
 
-app.get("/test-hash", async (_req, res) => {
-    const hash = await authService.hashPassword("password123");
-
-    res.json({
-        password: "password123",
-        hash,
-    });
-});
 
 // Register feature routes
 app.use("/api/v1/tenants", tenantRoutes);
+
+app.use(errorMiddleware);
 
 export default app;

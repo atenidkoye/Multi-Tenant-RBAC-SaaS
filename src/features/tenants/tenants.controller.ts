@@ -1,6 +1,5 @@
 import { Request, Response} from "express";
 import { tenantsService } from "./tenants.service";
-import { create } from "node:domain";
 
 
 
@@ -14,4 +13,15 @@ export const tenantsController = {
             data: tenant,
         });
     },
+
+    async getById(req: Request, res:Response){
+        const tenant_id = Number(req.params.tenant_id);
+
+        const tenant = await tenantsService.getById(tenant_id);
+
+        return res.status(200).json({
+            success: true,
+            data: tenant,
+        });
+    }
 };

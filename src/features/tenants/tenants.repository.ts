@@ -1,4 +1,3 @@
-import { create } from "node:domain";
 import { pool } from "../../core/database/pool";
 import { CreateTenantDTO } from "./tenants.types";
 
