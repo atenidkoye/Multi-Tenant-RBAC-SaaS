@@ -1,4 +1,6 @@
 import { Request, Response, NextFunction } from "express";
+import { AppError } from "../../utils/app-error";
+import { HTTP_STATUS } from "../../utils/http-status";
 
 export function validateCreateTenant (
     req: Request,
@@ -8,10 +10,10 @@ export function validateCreateTenant (
     const { name } = req.body;
 
     if (!name || typeof name !== "string" || name.trim() === ""){
-        return res.status(400).json({
-            success: false,
-            message: "Tenant name is required",
-        });
+        throw new AppError(
+            "Tenant name is required",
+            HTTP_STATUS.BAD_REQUEST
+        );
     }
 
     next();
