@@ -108,7 +108,42 @@ export const tenantsRepository = {
 
         return result.rows[0];
 
+    }, 
+    
+        async delete(
+        tenantId: number,
+    ): Promise<Tenant | undefined> {
+
+
+        const DELETE_SQL = `
+            UPDATE tenants
+            SET 
+
+                is_active = false,
+                updated_at = CURRENT_TIMESTAMP       
+            WHERE id = $1
+            RETURNING
+                id,
+                name,
+                slug,
+                is_active,
+                created_at,
+                updated_at;
+
+        `;
+
+        const result = await pool.query(
+            DELETE_SQL,
+            [
+                tenantId
+                
+            ]
+        );
+
+        return result.rows[0];
+
     }
+
 
     
 

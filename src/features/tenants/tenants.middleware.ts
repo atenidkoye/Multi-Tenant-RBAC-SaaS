@@ -18,3 +18,22 @@ export function validateCreateTenant (
 
     next();
 }
+
+export function validateUpdateTenant (
+    req: Request,
+    res: Response,
+    next: NextFunction
+){
+    const { name } = req.body;
+
+    if (!name || typeof name !== "string" || name.trim() === ""){
+        throw new AppError(
+            "Tenant name is required",
+            HTTP_STATUS.BAD_REQUEST    
+        );
+    }
+
+    next();
+}
+
+

@@ -70,7 +70,26 @@ export const tenantsService = {
         }
 
         return tenant;
-    }
+    }, 
+
+    async delete(tenantId: number){
+        const tenant = await tenantsRepository.getById(tenantId);
+
+        if(!tenant) {
+            throw new AppError(
+                "Tenant not found",
+                HTTP_STATUS.NOT_FOUND
+            );
+        } if(!tenant.is_active){
+            throw new AppError(
+                "Tenant is already inactive",
+                HTTP_STATUS.BAD_REQUEST        
+            );
+        }
+
+        return tenantsRepository.delete(tenantId)
+    },
+
 
 
 
